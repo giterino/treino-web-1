@@ -1,0 +1,10 @@
+{% extends "relatorios/base.html" %}
+
+{% block body %}
+    <h1>Aluno:</h1>
+    <ul>
+        {% for aluno in alunos %}
+        <li><a href="{% url 'aluno' aluno.id %}">Aluno {{ aluno.id }}</a>: {{ aluno.nusp }} {{ aluno.nome }} </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
