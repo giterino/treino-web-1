@@ -13,3 +13,6 @@ def docente(request, docente_id):
     return render(request, "relatorios/docente.html", {
         "docente": docente
     })
+
+def homepage(request):
+    return render(request, "relatorios/home.html")
