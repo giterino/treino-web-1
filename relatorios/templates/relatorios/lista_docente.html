@@ -1,0 +1,13 @@
+<html>
+    <head>
+        <title>Relatorios</title>
+    </head>
+    <body>
+        <h1>Docentes:</h1>
+        <ul>
+            {% for docente in docentes %}
+            <li> {{ docente.id }}: {{ docente.nusp }} {{ docente.nome }} </li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
