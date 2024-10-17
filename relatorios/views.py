@@ -10,8 +10,10 @@ def lista_docente(request):
 
 def docente(request, docente_id):
     docente = Docente.objects.get(id=docente_id)
+    orientandos = docente.orientandos.all()
     return render(request, "relatorios/docente.html", {
-        "docente": docente
+        "docente": docente,
+        "orientandos": orientandos
     })
 
 def homepage(request):
