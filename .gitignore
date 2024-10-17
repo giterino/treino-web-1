@@ -1,1 +1,4 @@
 .venv
+projeto_esi/__pycache__/
+relatorios/__pycache__/
+relatorios/migrations/__pycache__/
