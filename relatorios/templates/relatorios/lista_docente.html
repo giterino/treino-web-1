@@ -1,13 +1,10 @@
-<html>
-    <head>
-        <title>Relatorios</title>
-    </head>
-    <body>
-        <h1>Docentes:</h1>
-        <ul>
-            {% for docente in docentes %}
-            <li> {{ docente.id }}: {{ docente.nusp }} {{ docente.nome }} </li>
-            {% endfor %}
-        </ul>
-    </body>
-</html>
+{% extends "relatorios/base.html" %}
+
+{% block body %}
+    <h1>Docentes:</h1>
+    <ul>
+        {% for docente in docentes %}
+        <li><a href="{% url 'docente' docente.id %}">Docente {{ docente.id }}</a>: {{ docente.nusp }} {{ docente.nome }} </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

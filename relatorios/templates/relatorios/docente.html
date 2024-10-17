@@ -1,0 +1,10 @@
+{% extends "relatorios/base.html" %}
+
+{% block body %}
+    <h1>Docente {{ docente.id }}</h1>
+    <ul>
+        <li>NUSP: {{ docente.nusp }}</li>
+        <li>Nome: {{ docente.nome }}</li>
+    </ul>
+    <a href="{% url 'lista_docente' %}">Docentes</a>
+{% endblock %}
