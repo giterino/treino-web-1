@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Docente, Aluno
+from .models import Docente, Aluno, Relatorio
 
 # Create your views here.
 
@@ -28,4 +28,10 @@ def aluno(request, aluno_id):
     aluno = Aluno.objects.get(id=aluno_id)
     return render(request, "relatorios/aluno.html", {
         "aluno": aluno
+    })
+
+def lista_relatorio(request):
+    relatorios = Relatorio.objects.all().order_by("-periodo", "aluno")
+    return render(request, "relatorios/lista_relatorio.html", {
+        "relatorios": relatorios,
     })

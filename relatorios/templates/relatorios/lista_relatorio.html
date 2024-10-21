@@ -1,0 +1,16 @@
+{% extends "relatorios/base.html" %}
+
+{% block body %}
+    <h1>Relatorios:</h1>
+    <ul>
+        {% for relatorio in relatorios %}
+        <li>
+            Relatorio
+            {{ relatorio.id }}:
+            Periodo {{ relatorio.periodo }},
+            {{ relatorio.aluno.nome }},
+            {{ relatorio.status }}
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
