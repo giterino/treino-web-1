@@ -26,8 +26,13 @@ def lista_aluno(request):
 
 def aluno(request, aluno_id):
     aluno = Aluno.objects.get(id=aluno_id)
+    relatorio_atual = Relatorio.objects.filter(
+        aluno=aluno,
+        status=Relatorio.Status.VAZIO,
+    ).first()
     return render(request, "relatorios/aluno.html", {
-        "aluno": aluno
+        "aluno": aluno,
+        "relatorio_atual": relatorio_atual,
     })
 
 def lista_relatorio(request):
