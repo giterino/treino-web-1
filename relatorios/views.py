@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django import forms
+from django.http import HttpResponse
 
 from .models import Docente, Aluno, Relatorio, Avaliacao
 
@@ -112,8 +113,31 @@ def relatorio(request, relatorio_id):
     })
 
 def avaliar(request, relatorio_id):
-    relatorio = Relatorio.objects.get(id=relatorio_id)
-    form = FormularioAvaliacao()
+    relatorio = get_object_or_404(Relatorio, id=relatorio_id)
+
+    docente_id = relatorio.docente_responsavel.id
+    # TODO: testar se usuario tem permissao para avaliar o relatorio
+
+    if relatorio.status != Relatorio.Status.PREENCHIDO:
+        return HttpResponse("O relatório não pode ser avaliado.")
+
+    if request.method == "POST":
+        form = FormularioAvaliacao(request.POST)
+        if form.is_valid():
+            parecer = form.cleaned_data["parecer"]
+            conceito = form.cleaned_data["conceito"]
+            avaliacao = Avaliacao(
+                relatorio=relatorio,
+                avaliador=relatorio.docente_responsavel,
+                parecer=parecer,
+                conceito=conceito,
+            )
+            relatorio.status = Relatorio.Status.AVALIADO_POR_DOCENTE
+            relatorio.save()
+            avaliacao.save()
+            return redirect(reverse("docente", args=[docente_id]))
+    else:
+        form = FormularioAvaliacao()
     contexto = {
         "relatorio": relatorio,
         "form": form,
