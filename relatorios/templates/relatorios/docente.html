@@ -6,6 +6,21 @@
         <li>NUSP: {{ docente.nusp }}</li>
         <li>Nome: {{ docente.nome }}</li>
     </ul>
+    <h1>Relatórios do período {{ periodo_atual }}</h1>
+    <ul>
+        {% for r in relatorios %}
+            <li>
+                Relatório {{ r.id }}
+                | Aluno {{ r.aluno.nome }}
+                | Status {{ r.rotulo_status }}
+                {% if r.status == 1 %}
+                    | <a href="{% url 'avaliar' r.id %}">Avaliar</a>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>Nenhum.</li>
+        {% endfor %}
+    </ul>
     <h1>Alunos orientados:</h1>
     <ul>
         {% for aluno in orientandos %}

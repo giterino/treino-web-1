@@ -45,9 +45,9 @@ class Relatorio(models.Model):
         AVALIADO_POR_CCP = 3
     status = models.IntegerField(choices=Status.choices)
     # TODO: adicionar campos preenchidos por aluno
-    nro_artigos_aceitos = models.IntegerField(null=True)
-    atividades_academicas = models.TextField(null=True)
-    atividades_pesquisa = models.TextField(null=True)
+    nro_artigos_aceitos = models.IntegerField(null=True, blank=True)
+    atividades_academicas = models.TextField(null=True, blank=True)
+    atividades_pesquisa = models.TextField(null=True, blank=True)
 
 
     def __str__(self):

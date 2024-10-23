@@ -52,9 +52,16 @@ def lista_docente(request):
 def docente(request, docente_id):
     docente = Docente.objects.get(id=docente_id)
     orientandos = docente.orientandos.all()
+    periodo_atual = obtem_periodo_atual()
+    relatorios = Relatorio.objects.filter(
+        docente_responsavel=docente,
+        periodo=periodo_atual,
+    )
     return render(request, "relatorios/docente.html", {
         "docente": docente,
-        "orientandos": orientandos
+        "orientandos": orientandos,
+        "relatorios": relatorios,
+        "periodo_atual": periodo_atual,
     })
 
 def homepage(request):
