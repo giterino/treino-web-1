@@ -1,0 +1,29 @@
+{% extends "relatorios/base.html" %}
+
+{% block body %}
+    <h1>Relatório {{ relatorio.id }}</h1>
+    <ul>
+        <li>Periodo: {{ relatorio.periodo }}</li>
+        <li>Tentativa: {{ relatorio.nro_tentativa }}</li>
+        <li>Aluno:
+            {{ relatorio.aluno.nome }} -
+            {{ relatorio.aluno.nusp }}
+        </li>
+        <li>Docente responsável:
+            {{ relatorio.docente_responsavel.nome }} -
+            {{ relatorio.docente_responsavel.nusp }}
+        </li>
+        <li>Status: {{ relatorio.status }}</li>
+    </ul>
+    <h2>Dados submetidos:</h2>
+    {% if relatorio.status != 0 %}
+        <ul>
+            <li>Artigos aceitos: {{ relatorio.nro_artigos_aceitos }}</li>
+            <li>Atividades acadêmicas: {{ relatorio.atividades_academicas }}</li>
+            <li>Atividades de pesquisa: {{ relatorio.atividades_pesquisa }}</li>
+        </ul>
+    {% else %}
+        Relatório não preenchido.
+    {% endif %}
+    <a href="{% url 'lista_relatorio' %}">Relatórios</a>
+{% endblock %}

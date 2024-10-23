@@ -23,7 +23,7 @@ class FormularioRelatorio(forms.Form):
     )
     rotulo_atividades_pesquisa = "Relato das atividades de pesquisa"
     atividades_pesquisa = forms.CharField(
-        label=rotulo_atividades_academicas,
+        label=rotulo_atividades_pesquisa,
         widget=forms.Textarea,
     )
 
@@ -73,10 +73,16 @@ def preencher(request, aluno_id, relatorio_id):
     docente = relatorio.docente_responsavel
     if request.method == "POST":
         form = FormularioRelatorio(request.POST)
-        # validar e preencher relatorio
-        return redirect(reverse("aluno", args=[aluno_id]))
+        if form.is_valid():
+            relatorio.nro_artigos_aceitos = form.cleaned_data["nro_artigos_aceitos"]
+            relatorio.atividades_academicas = form.cleaned_data["atividades_academicas"]
+            relatorio.atividades_pesquisa = form.cleaned_data["atividades_pesquisa"]
+            relatorio.status = Relatorio.Status.PREENCHIDO
+            relatorio.save()
+            return redirect(reverse("aluno", args=[aluno_id]))
     else:
         form = FormularioRelatorio()
+
     return render(request, "relatorios/submissao.html", {
         "aluno": aluno,
         "relatorio": relatorio,
@@ -84,3 +90,8 @@ def preencher(request, aluno_id, relatorio_id):
         "form": form,
     })
 
+def relatorio(request, relatorio_id):
+    relatorio = Relatorio.objects.get(id=relatorio_id)
+    return render(request, "relatorios/relatorio.html", {
+        "relatorio": relatorio,
+    })
