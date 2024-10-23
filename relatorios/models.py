@@ -78,3 +78,6 @@ class Avaliacao(models.Model):
 
     def __str__(self):
         return f"relatorio_id={self.relatorio.id} avaliador={self.avaliador.nome} conceito={self.conceito}"
+
+    def rotulo_conceito(self):
+        return self.Conceito(self.conceito).label

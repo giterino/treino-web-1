@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django import forms
 
-from .models import Docente, Aluno, Relatorio
+from .models import Docente, Aluno, Relatorio, Avaliacao
 
 from .utils import obtem_periodo_atual
 
@@ -27,6 +27,18 @@ class FormularioRelatorio(forms.Form):
     atividades_pesquisa = forms.CharField(
         label=rotulo_atividades_pesquisa,
         widget=forms.Textarea,
+    )
+
+class FormularioAvaliacao(forms.Form):
+    rotulo_parecer = "Parecer"
+    parecer = forms.CharField(
+        label=rotulo_parecer,
+        widget=forms.Textarea,
+    )
+    rotulo_conceito = "Conceito"
+    conceito = forms.ChoiceField(
+        label=rotulo_conceito,
+        choices=Avaliacao.Conceito.choices,
     )
 
 # Create your views here.
@@ -98,3 +110,13 @@ def relatorio(request, relatorio_id):
     return render(request, "relatorios/relatorio.html", {
         "relatorio": relatorio,
     })
+
+def avaliar(request, relatorio_id):
+    relatorio = Relatorio.objects.get(id=relatorio_id)
+    form = FormularioAvaliacao()
+    contexto = {
+        "relatorio": relatorio,
+        "form": form,
+    }
+    return render(request, "relatorios/submissao_avaliacao.html", contexto)
+

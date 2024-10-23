@@ -1,0 +1,25 @@
+{% extends "relatorios/base.html" %}
+
+{% block body %}
+    <h1>Relatório</h1>
+    <ul>
+        <li>ID: {{ relatorio.id }}</li>
+        <li>Período: {{ relatorio.periodo }}</li>
+        <li>Aluno: {{ relatorio.aluno.nome }}</li>
+        <li>Status: {{ relatorio.rotulo_status }}</li>
+    </ul>
+    <h1>Respostas do Relatório</h1>
+    <ul>
+        <li>Docente Responsável:
+            {{ relatorio.docente_responsavel.nome }}
+        <li>Artigos aceitos: {{ relatorio.nro_artigos_aceitos }}</li>
+        <li>Atividades acadêmicas: {{ relatorio.atividades_academicas }}</li>
+        <li>Atividades de pesquisa: {{ relatorio.atividades_pesquisa }}</li>
+        </li>
+    </ul>
+    <form action="{% url 'avaliar' relatorio.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submeter">
+    </form>
+{% endblock %}
