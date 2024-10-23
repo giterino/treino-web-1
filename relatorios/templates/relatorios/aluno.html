@@ -9,7 +9,7 @@
     <h2>Relatório do período {{ relatorio_atual.periodo }}:</h2>
     Relatório {{ relatorio_atual.id }} Status: {{ relatorio_atual.status }}<br>
     {% if relatorio_atual.status == 0 %}
-        <a href="">Preencher</a><br>
+        <a href="{% url 'preencher' aluno.id relatorio_atual.id %}">Preencher</a><br>
     {% endif %}
     <a href="{% url 'lista_aluno' %}">Alunos</a>
 {% endblock %}

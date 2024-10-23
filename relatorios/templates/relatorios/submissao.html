@@ -1,0 +1,13 @@
+{% extends "relatorios/base.html" %}
+
+{% block body %}
+    <h1>Relatório</h1>
+    Período: {{ relatorio.periodo }}<br>
+    Aluno: {{ aluno.nome }}<br>
+    Docente Responsável: {{ docente.nome }}<br>
+    <form action="{% url 'preencher' aluno.id relatorio.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submeter">
+    </form>
+{% endblock %}
