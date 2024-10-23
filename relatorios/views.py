@@ -4,6 +4,8 @@ from django import forms
 
 from .models import Docente, Aluno, Relatorio
 
+from .utils import obtem_periodo_atual
+
 class FormularioRelatorio(forms.Form):
     opcoes_artigo = [
         ("0", "0"),
@@ -52,9 +54,10 @@ def lista_aluno(request):
 
 def aluno(request, aluno_id):
     aluno = Aluno.objects.get(id=aluno_id)
+    periodo_atual = obtem_periodo_atual()
     relatorio_atual = Relatorio.objects.filter(
         aluno=aluno,
-        status=Relatorio.Status.VAZIO,
+        periodo=periodo_atual,
     ).first()
     return render(request, "relatorios/aluno.html", {
         "aluno": aluno,
