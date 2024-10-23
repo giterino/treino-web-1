@@ -7,9 +7,8 @@
         <li>Nome: {{ aluno.nome }}</li>
     </ul>
     <h2>Relatório do período {{ relatorio_atual.periodo }}:</h2>
-    Relatório {{ relatorio_atual.id }} Status: {{ relatorio_atual.status }}<br>
+    Relatório {{ relatorio_atual.id }} Status: {{ relatorio_atual.rotulo_status }}
     {% if relatorio_atual.status == 0 %}
-        <a href="{% url 'preencher' aluno.id relatorio_atual.id %}">Preencher</a><br>
+        <a href="{% url 'preencher' aluno.id relatorio_atual.id %}">Preencher</a>
     {% endif %}
-    <a href="{% url 'lista_aluno' %}">Alunos</a>
 {% endblock %}

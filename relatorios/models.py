@@ -53,6 +53,9 @@ class Relatorio(models.Model):
     def __str__(self):
         return f"periodo={self.periodo}, aluno={self.aluno.nome}, {self.status}"
 
+    def rotulo_status(self):
+        return self.Status(self.status).label
+
 class Avaliacao(models.Model):
     relatorio = models.ForeignKey(
         Relatorio,

@@ -13,7 +13,7 @@
             {{ relatorio.docente_responsavel.nome }} -
             {{ relatorio.docente_responsavel.nusp }}
         </li>
-        <li>Status: {{ relatorio.status }}</li>
+        <li>Status: {{ relatorio.rotulo_status }}</li>
     </ul>
     <h2>Dados submetidos:</h2>
     {% if relatorio.status != 0 %}
